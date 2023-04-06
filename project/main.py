@@ -18,3 +18,4 @@ matriz = [["Hugo", b, dato, "da", "sd", "sdf", "sdf", "sf", "dfsd", "fdgd"],
 
 print(tabulate(matriz, headers=["PASO", "MC", "CL1",
       "CL2", "CL3", "CL4", "n", "ES", "#MaqEnServer", "#MaqEnCola"]))
+
