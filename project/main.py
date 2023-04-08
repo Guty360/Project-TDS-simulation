@@ -1,21 +1,19 @@
-from functions import saludar, decirHola, array
-from constants import setDefaultData, vector, incremento
+from functions import array2, MinimumData
+from constants import setDefaultData
 from tabulate import tabulate
 
-# prueba de datos
-a, b, nombre = setDefaultData()
+# Datos a pedir al usuario
 
-# prueba de impresion de elementos cambiantes
-for i in range(1, 5):
-    i = b
-    b += 1
-dato = decirHola()
-print(dato)
 
-matriz = [["Hugo", b, dato, "da", "sd", "sdf", "sdf", "sf", "dfsd", "fdgd"],
-    ["Juan", 35, "Argentino", "da", "sd", "sdf", "sdf", "sf", "dfsd", "fdgd"],
-    ["Pedro", 10, "Jalisco", "da", "sd", "sdf", "sdf", "sf", "dfsd", "fdgd"]]
+data = MinimumData(1, 4, 9, 1000)
 
-print(tabulate(matriz, headers=["PASO", "MC", "CL1",
-      "CL2", "CL3", "CL4", "n", "ES", "#MaqEnServer", "#MaqEnCola"]))
+matriz = [array2(data, 1, 4, 9, 1000)]
 
+for i in range(0, 4):
+    print(tabulate(matriz, headers=["PASO", "MC", "CL1",
+                                    "CL2", "CL3", "CL4", "n", "ES", "#MaqEnServer",
+                                    "#MaqEnCola"], tablefmt="orgtbl"))
+    print(" ")
+    data1 = MinimumData(45, 5, 45, 120)
+    NewMatriz = array2(data1, 4, 5, 45, 120)
+    matriz = [NewMatriz]

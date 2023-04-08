@@ -6,8 +6,8 @@ def setDefaultData():
     return (a, b, nombre)
 
 
-def incremento():
-    paso = 0
+def constantes(MC, CL5_AUX):
+    print("")
 
 
 def vector():
