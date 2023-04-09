@@ -1,29 +1,5 @@
 from constants import constantes
-
-
-def MinimumData(CL1, CL2, CL3, CL4):
-    MC = 0
-    CL1 = CL1
-    CL2 = CL2
-    CL3 = CL3
-    CL4 = CL4
-    if (CL1 < CL2):
-        if (CL1 < CL3):
-            if (CL1 < CL4):
-                return CL1
-    if (CL2 < CL1):
-        if (CL2 < CL3):
-            if (CL2 < CL4):
-                return CL2
-    if (CL3 < CL1):
-        if (CL3 < CL2):
-            if (CL3 < CL4):
-                return CL3
-    if (CL4 < CL1):
-        if (CL4 < CL2):
-            if (CL4 < CL3):
-                return CL4
-
+from datetime import date, time, datetime
 
 def array2(paso, MC, CL1, CL2, CL3, CL4, n, ES, maqServer, maqCola):
     paso = paso
@@ -59,3 +35,18 @@ def returnData(collection):
 #             dataCollection[7] = 1
 #             dataCollection[8] = AuxSever
 #             return dataCollection
+
+def ingresarValoresEnteros(indicacion):
+    entrada = input(indicacion)
+    if not entrada.isdigit():
+        print("\nIngrese un numero entero valido! ")
+        entrada = ingresarValores(indicacion)
+    return int(entrada)
+
+def guardarEnTxt(texto):
+    fecha_hora_actual = datetime.now()
+    cadena_fecha_hora = fecha_hora_actual.strftime("%Y-%m-%d_%H:%M:%S")
+    nombre = cadena_fecha_hora + '.txt'
+    archivo = open(nombre, "w")
+    archivo.write(texto)
+    archivo.close()
