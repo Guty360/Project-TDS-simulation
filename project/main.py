@@ -1,4 +1,4 @@
-from functions import array2, returnData, ingresarValoresEnteros, guardarEnTxt
+from functions import array2, returnData, ingresarValoresEnteros, guardarEnTxt, valoresDeUnDiccionario
 from tabulate import tabulate
 
 # Variables
@@ -6,42 +6,44 @@ texto = ""
 
 # Datos a pedir al usuario
 # Pedimos los clocks
-# clock1 = ingresarValoresEnteros("Ingrese el clock 1:\n")
-# clock2 = ingresarValoresEnteros("Ingrese el clock 2:\n")
-# clock3 = ingresarValoresEnteros("Ingrese el clock 3:\n")
-# clock4 = ingresarValoresEnteros("Ingrese el clock 4:\n")
+""" clock1 = ingresarValoresEnteros("Ingrese el clock 1:\n")
+clock2 = ingresarValoresEnteros("Ingrese el clock 2:\n")
+clock3 = ingresarValoresEnteros("Ingrese el clock 3:\n")
+clock4 = ingresarValoresEnteros("Ingrese el clock 4:\n") """
 # Ingresamos todos los clocks en una sola variable
-clock1 = 1
-clock2 = 4
-clock3 = 9
-clock4 = 1000
-clocks = [clock1, clock2, clock3, clock4]
+""" clocks = [clock1, clock2, clock3, clock4] """
+clocks = [1, 4, 9, 1000]
 
 
 dataMinimun = min(clocks)
 
-matriz = [array2(0, 0, clock1, clock2, clock3, clock4, 0, 0, 0, 0)]
-Out1 = 1001
-Out2 = 1002
-Out3 = 1003
-Out4 = 1004
+matriz = [array2(0, 0, clocks[0], clocks[1], clocks[2], clocks[3], 0, 0, 0, 0)]
+Out1 = [1001, 1002, 1003, 1004]
 AuxOut = 0
 AuxServer = 1
 
-for i in range(0, 7):
-    print(tabulate(matriz, headers=["PASO", "MC", "CL1",
-                                    "CL2", "CL3", "CL4", "n", "ES", "#MaqEnServer",
-                                    "#MaqEnCola"], tablefmt="orgtbl"))
-    texto += tabulate(matriz, headers=["PASO", "MC", "CL1", "CL2", "CL3",
-                      "CL4", "n", "ES", "#MaqEnServer", "#MaqEnCola"], tablefmt="orgtbl")
+valores = {
+    "Paso" : 0,
+    "MC": 0,
+    "clock1": clocks[0],
+    "clock2": clocks[1],
+    "clock3": clocks[2],
+    "clock4": clocks[3],
+    'numero': 0,
+    "ES": 0,
+    "maqServer": 0,
+    "maqCola": 0
+}
+
+for i in range(0, 4):
+    print(tabulate([valoresDeUnDiccionario(valores)], headers=list(valores.keys()), tablefmt="orgtbl"))
+    # texto += tabulate(valoresDeUnDiccionario(valores), headers=list(valores.keys()), tablefmt="orgtbl")
 
     print(" ")
     texto += " "
 
-    dataCollection = returnData(matriz)
     # realizar validaciones de los datos aqui
-    newDataMinimum = min(
-        dataCollection[2], dataCollection[3], dataCollection[4], dataCollection[5])
+    newDataMinimum = min(valores["clock1"], valores["clock2"], valores["clock3"], valores["clock4"])
 
     texto += str(newDataMinimum) + "\n\n"
     print(newDataMinimum)
@@ -116,6 +118,8 @@ print(AuxOut)
 # NewMatriz = array2(array[0], array[1], array[2], array[3],
 #                     array[4], array[5], array[6], array[7], array[8], array[9])
 # matriz = [NewMatriz]
+
+
 
 
 # guardarEnTxt(texto)

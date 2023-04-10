@@ -49,3 +49,18 @@ def guardarEnTxt(texto):
     archivo = open(nombre, "w")
     archivo.write(texto)
     archivo.close()
+
+def valoresDeUnDiccionario(diccionario):
+    # Crear una tupla vacía para almacenar los valores
+    valores = ()
+
+    # Iterar sobre los valores del diccionario
+    for valor in diccionario.values():
+        # Verificar si el valor es numérico
+        if isinstance(valor, (int, float)):
+            # Convertir el valor a string y agregarlo a la tupla
+            valores += (str(valor),)
+        else:
+            # Agregar el valor a la tupla
+            valores += (valor,)
+    return valores
