@@ -21,7 +21,10 @@ clocks = [clock1, clock2, clock3, clock4]
 dataMinimun = min(clocks)
 
 matriz = [array2(0, 0, clock1, clock2, clock3, clock4, 0, 0, 0, 0)]
-Out1 = [1001, 1002, 1003, 1004]
+Out1 = 1001
+Out2 = 1002
+Out3 = 1003
+Out4 = 1004
 AuxOut = 0
 AuxServer = 1
 
@@ -41,13 +44,14 @@ for i in range(0, 4):
         dataCollection[2], dataCollection[3], dataCollection[4], dataCollection[5])
 
     texto += str(newDataMinimum) + "\n\n"
-
+    print(newDataMinimum)
     # ----------> CL1 <----------
     if dataMinimun == dataCollection[2]:
+        
         if dataCollection[1] == dataCollection[5]:
             AuxOut = dataCollection[1] + 10
         else:
-            AuxOut = Out1[0]
+            AuxOut = Out1
         dataCollection[1] = dataMinimun
         dataCollection[2] = AuxOut
         dataCollection[5] = dataCollection[1] + 5
@@ -58,30 +62,32 @@ for i in range(0, 4):
 
     # ----------> CL2 <----------
     if newDataMinimum == dataCollection[3]:
+        print(dataCollection)
         if dataCollection[1] == dataCollection[5]:
             AuxOut = dataCollection[1] + 10
+            AuxOut2 = dataCollection[5] + 5
         else:
-            AuxOut = Out1[1]
+            AuxOut = Out2
+            AuxOut2 = dataCollection[5]
 
         dataCollection[1] = newDataMinimum
         dataCollection[2] = AuxOut
-        dataCollection[3] = 0
-        dataCollection[5] = dataCollection[1] + 5
+        dataCollection[3] = Out2
+        dataCollection[5] = AuxOut2
         dataCollection[6] = 1
         dataCollection[7] = 1
         dataCollection[8] = AuxServer
     # ----------> CL3 <----------
 
 
-
     if newDataMinimum == dataCollection[4]:
         if dataCollection[1] == dataCollection[5]:
             AuxOut = dataCollection[1] + 10
         else:
-            AuxOut = Out1[0]
+            AuxOut = Out3
         dataCollection[1] = newDataMinimum
         dataCollection[2] = AuxOut
-        dataCollection[3] = Out1
+        dataCollection[3] = Out3
         dataCollection[5] = dataCollection[1] + 5
         dataCollection[6] = 1
         dataCollection[7] = 1
@@ -89,15 +95,14 @@ for i in range(0, 4):
      # ----------> CL4 <----------
 
 
-     
     if newDataMinimum == dataCollection[5]:
         if dataCollection[1] == dataCollection[5]:
             AuxOut = dataCollection[1] + 10
         else:
-            AuxOut = Out1[1]
+            AuxOut = Out4
         dataCollection[1] = newDataMinimum
-        dataCollection[2] = Out1[2]
-        dataCollection[3] = Out1
+        dataCollection[2] = Out3
+        dataCollection[3] = Out4
         dataCollection[5] = dataCollection[1] + 5
         dataCollection[6] = 1
         dataCollection[7] = 1
