@@ -37,6 +37,13 @@ for i in range(0, 4):
         dataCollection[6] = 1
         dataCollection[7] = 1
         dataCollection[8] = AuxServer
+    if newDataMinimum == dataCollection[4]:
+        dataCollection[1] = dataMinimun
+        dataCollection[2] = 151515151515
+        dataCollection[5] = dataCollection[1] + 5
+        dataCollection[6] = 1
+        dataCollection[7] = 1
+        dataCollection[8] = AuxServer
 
     # data1 = MinimumData(array[2], array[3], array[4], array[5])
 
