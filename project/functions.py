@@ -1,4 +1,3 @@
-from constants import constantes
 from datetime import date, time, datetime
 
 def array2(paso, MC, CL1, CL2, CL3, CL4, n, ES, maqServer, maqCola):
