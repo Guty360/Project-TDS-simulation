@@ -28,7 +28,7 @@ Out4 = 1004
 AuxOut = 0
 AuxServer = 1
 
-for i in range(0, 4):
+for i in range(0, 7):
     print(tabulate(matriz, headers=["PASO", "MC", "CL1",
                                     "CL2", "CL3", "CL4", "n", "ES", "#MaqEnServer",
                                     "#MaqEnCola"], tablefmt="orgtbl"))
@@ -67,7 +67,7 @@ for i in range(0, 4):
             AuxOut = dataCollection[1] + 10
             AuxOut2 = dataCollection[5] + 5
         else:
-            AuxOut = Out2
+            AuxOut = Out1
             AuxOut2 = dataCollection[5]
 
         dataCollection[1] = newDataMinimum
@@ -83,12 +83,13 @@ for i in range(0, 4):
     if newDataMinimum == dataCollection[4]:
         if dataCollection[1] == dataCollection[5]:
             AuxOut = dataCollection[1] + 10
+            AuxOut2 = dataCollection[5] + 5
         else:
-            AuxOut = Out3
+            AuxOut = dataCollection[1] + 10
         dataCollection[1] = newDataMinimum
         dataCollection[2] = AuxOut
-        dataCollection[3] = Out3
-        dataCollection[5] = dataCollection[1] + 5
+        dataCollection[3] = Out1
+        dataCollection[5] = AuxOut2
         dataCollection[6] = 1
         dataCollection[7] = 1
         dataCollection[8] = AuxServer
@@ -98,12 +99,14 @@ for i in range(0, 4):
     if newDataMinimum == dataCollection[5]:
         if dataCollection[1] == dataCollection[5]:
             AuxOut = dataCollection[1] + 10
+            AuxOut2 = dataCollection[5] + 5
         else:
             AuxOut = Out4
         dataCollection[1] = newDataMinimum
-        dataCollection[2] = Out3
+        dataCollection[2] = dataCollection[1] + 10
         dataCollection[3] = Out4
-        dataCollection[5] = dataCollection[1] + 5
+        dataCollection[4] = Out4
+        dataCollection[5] = AuxOut2
         dataCollection[6] = 1
         dataCollection[7] = 1
         dataCollection[8] = AuxServer
