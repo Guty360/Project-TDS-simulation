@@ -1,45 +1,10 @@
-from datetime import date, time, datetime
-
-def array2(paso, MC, CL1, CL2, CL3, CL4, n, ES, maqServer, maqCola):
-    paso = paso
-    maqCola = maqCola
-    maqServer = maqServer
-    n = 0
-    ES = 0
-    MC = 0
-
-    collection = [
-        paso, MC, CL1, CL2, CL3, CL4, n, ES, maqServer, maqCola]
-    return collection
-
-
-def returnData(collection):
-    for i in range(len(collection)):
-        aux = collection[i]
-        return aux
-
-
-# def ValidationOfData(dataCollection, DataMinimun):
-#     Out1 = 1001
-#     Out2 = 1002
-#     Out3 = 1003
-#     Out4 = 1004
-#     AuxSever = 1
-#     for i in range(0, 4):
-#         if DataMinimun == dataCollection[2]:
-#             dataCollection[1] = DataMinimun
-#             dataCollection[2] = Out1
-#             dataCollection[5] = dataCollection[1] + 5
-#             dataCollection[6] = 1
-#             dataCollection[7] = 1
-#             dataCollection[8] = AuxSever
-#             return dataCollection
+from datetime import datetime
 
 def ingresarValoresEnteros(indicacion):
     entrada = input(indicacion)
     if not entrada.isdigit():
         print("\nIngrese un numero entero valido! ")
-        entrada = ingresarValores(indicacion)
+        entrada = ingresarValoresEnteros(indicacion)
     return int(entrada)
 
 def guardarEnTxt(texto):
@@ -64,3 +29,17 @@ def valoresDeUnDiccionario(diccionario):
             # Agregar el valor a la tupla
             valores += (valor,)
     return valores
+
+def cargarDatos():
+    respuesta = input("Desea ingresar los datos? (y/n)\n")
+    clocks= []
+    if(respuesta == 'y' or respuesta == 'Y'):
+        for i in range(0,4):
+            clocks.append( ingresarValoresEnteros("Ingrese el clock" + str(i) +" :\n") )
+    elif(respuesta == 'n' or respuesta == 'N'):
+        clocks = [53, 5, 14, 31]
+    else:
+        print("\nSea serio por favor :/\n")
+        clocks = cargarDatos()
+    
+    return clocks
