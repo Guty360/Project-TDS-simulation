@@ -5,7 +5,9 @@ from tabulate import tabulate
 
 ## Datos a pedir al usuario
 ### Pedimos los clocks (1-4)
-clocks = cargarDatos()
+# clocks = cargarDatos()
+clocks = [53, 5, 14, 31]
+
     
     #* Clock 5
 clockAuxiliar = 1000
@@ -31,39 +33,30 @@ valores = {
     
     #* Guardamos las filas de la matriz a imprimir la final
 filas = [tuple(valores.values())]
-pendientes = []
 
 
 for i in range(0, 10):
     """ clocksAuxiliar = clocks
     clocksAuxiliar.append(clockAuxiliar) """
+    
     clocksAuxiliar = [valores["clock1"], valores["clock2"],valores["clock3"],valores["clock4"],valores["clock5"]]
     valores["MC"] = min(clocksAuxiliar)
-    
-    print(clocksAuxiliar)
 
+
+    for element in out:
+        if not element in clocks:
+            if clockAuxiliar == 1000:
+                clockAuxiliar = clocksAuxiliar[clocksAuxiliar.index(min(clocksAuxiliar))] + 11
+            clocks[clocks.index(min(clocks))] = element
+            valores["ES"] = 1
+            break
+        
     if valores["MC"] == clockAuxiliar:
         clocks[clocks.index(min(out))] = valores["MC"] + 480
         for i in range(1,4):
             if out[i] in clocks:
                 clocks[clocks.index(out[i])] = out[i-1]
-                if len(pendientes) > 0:
-                    clockAuxiliar = valores["MC"] + 11
-                else:
-                    clockAuxiliar = 1000
     
-    
-        
-
-    for element in out:
-        if not element in clocks:
-            if clockAuxiliar == 1000:
-                clockAuxiliar = clocks[clocks.index(min(clocks))] + 11
-            pendientes.append(clocks[clocks.index(min(clocks))])
-            clocks[clocks.index(min(clocks))] = element
-            valores["ES"] = 1
-            break
-        
     # * Actualizando los valores
     valores["clock1"] = clocks[0]
     valores["clock2"] = clocks[1]
