@@ -79,7 +79,10 @@ for i in range(0, 15):
     valores["clock5"] = clocksAuxiliar[4]
     
     valores["Paso"]+=1
-    filas.append(tuple(valores.values()))
+    if valores["clock5"] != valores["MC"]:
+        filas.append(tuple(valores.values()))
+    else:
+        valores["Paso"] -= 1
 
     
 print("\n")
