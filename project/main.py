@@ -1,43 +1,53 @@
-from functions import guardarEnTxt, valoresDeUnDiccionario, cargarDatos
+from functions import guardarEnTxt, cargarDatos
 from tabulate import tabulate
+import json
 
 # Variables
+ajuste = {
+    "tiempoSeteoYAjuste" : 11,
+    "tiempoNormalDeUsoDeMaquina" : 480,
+    "cantidadDeEjecucciones" : 25
+}
+
 
 ## Datos a pedir al usuario
 ### Pedimos los clocks (1-4)
-# clocks = cargarDatos()
-clocks = [53, 5, 14, 31]
+clocks = cargarDatos()
 
     
-    #* Clock 5
-clockAuxiliar = 1000
-    #* Clock 5
+#* Clock del servidor
+clockServidor = 10000
 
 ## Datos del sistema
-out = [1001, 1002, 1003, 1004, 1005]
-AuxOut = 0
-AuxServer = 1
+out = [10001, 10002, 10003, 10004, 10005]
 valores = {
     "Paso" : 0,
     "MC": 0,
-    "clock1": clocks[0],
-    "clock2": clocks[1],
-    "clock3": clocks[2],
-    "clock4": clocks[3],
-    "clock5": clockAuxiliar,
-    'numero': 0,
-    "ES": "Desocupado",
-    "maqServer": "-",
-    "maqCola": "-"
 }
+
+for i, clock in enumerate(clocks):
+    key = "clock{}".format(i+1)
+    valores[key] = clock
+#Agregamos el clock servidor
+key = "clock{}".format(len(clocks)+1)
+valores[key] = clockServidor
+
+valores['numero']= 0
+valores["ES"]= "Desocupado"
+valores["maqServer"]= "-"
+valores["maqCola"]= "-"
+
     
-    #* Guardamos las filas de la matriz a imprimir la final
+#* Guardamos las filas de la matriz a imprimir la final
 filas = [tuple(valores.values())]
 
 
-for i in range(0, 15):    
+for i in range(0, ajuste["cantidadDeEjecucciones"]):    
     
-    clocksAuxiliar = [valores["clock1"], valores["clock2"],valores["clock3"],valores["clock4"],valores["clock5"]]
+    clocksAuxiliar = []
+    for i in range(0, len(clocks)+1):
+        clocksAuxiliar.append(valores["clock{}".format(i+1)])
+
     valores["MC"] = min(clocksAuxiliar)
 
     for element in out:
@@ -45,10 +55,10 @@ for i in range(0, 15):
             #Si el clock auxiliar es el minimo
             if clocksAuxiliar.index(min(clocksAuxiliar)) == (len(clocksAuxiliar) - 1):
                 if clocksAuxiliar[len(clocksAuxiliar) - 1] == valores["MC"]:
-                    clocksAuxiliar[len(clocksAuxiliar) - 1] = valores["MC"] + 11
+                    clocksAuxiliar[len(clocksAuxiliar) - 1] = valores["MC"] + ajuste["tiempoSeteoYAjuste"]
                 
-                if clocksAuxiliar[len(clocksAuxiliar) - 1] != 1000:
-                    clocksAuxiliar[clocksAuxiliar.index(out[0])] = valores["MC"] + 480
+                if clocksAuxiliar[len(clocksAuxiliar) - 1] != clockServidor:
+                    clocksAuxiliar[clocksAuxiliar.index(out[0])] = valores["MC"] + ajuste["tiempoNormalDeUsoDeMaquina"]
                 break
             
             #Se asigna si el reloj auxiliar index
@@ -57,7 +67,7 @@ for i in range(0, 15):
 
             #Si el elemento es el primer out
             if element == out[0]:
-                clocksAuxiliar[len(clocksAuxiliar) - 1] = valores["MC"] + 11
+                clocksAuxiliar[len(clocksAuxiliar) - 1] = valores["MC"] + ajuste["tiempoSeteoYAjuste"]
             break
     
     if not out[0] in clocksAuxiliar:
@@ -67,7 +77,7 @@ for i in range(0, 15):
                 clocksAuxiliar[clocksAuxiliar.index(out[i])] = out[i-1]
                 contador += 1
         if contador == 0:
-            clocksAuxiliar[len(clocksAuxiliar) - 1] = 1000
+            clocksAuxiliar[len(clocksAuxiliar) - 1] = clockServidor
             valores["ES"] = "Desocupado"
 
     valores["numero"] = 0
@@ -90,21 +100,26 @@ for i in range(0, 15):
     
     
     # * Actualizando los valores
-    valores["clock1"] = clocksAuxiliar[0]
-    valores["clock2"] = clocksAuxiliar[1]
-    valores["clock3"] = clocksAuxiliar[2]
-    valores["clock4"] = clocksAuxiliar[3]
-    valores["clock5"] = clocksAuxiliar[4]
+    for i in range(1, len(clocksAuxiliar)+1):
+        valores["clock{}".format(i)] = clocksAuxiliar[i-1]
     
     valores["Paso"]+=1
-    if valores["clock5"] != valores["MC"]:
+    # Para los casos especiales cuando al momento de salida y entrada coincida y se muestran dos Master Clock "MC" con el mismo el valor, es que se usa este y solo imprime una vez el master clock
+    if valores["clock{}".format(len(clocksAuxiliar))] != valores["MC"]:
         filas.append(tuple(valores.values()))
     else:
         valores["Paso"] -= 1
 
     
 print("\n")
+print("Los ajustes usados son:")
+print(ajuste)
+print("\n")
 print(tabulate(filas, headers=list(valores.keys()), tablefmt="orgtbl"))
 
+txt += "Los ajustes usados son:\n"
+txt += json.dumps(ajuste)
+txt += "\n\n"
+txt += tabulate(filas, headers=list(valores.keys()), tablefmt="orgtbl")
 
-# guardarEnTxt(tabulate(filas, headers=list(valores.keys()), tablefmt="orgtbl"))
+guardarEnTxt(txt)

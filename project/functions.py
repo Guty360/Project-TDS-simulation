@@ -1,9 +1,14 @@
 from datetime import datetime
+from tabulate import tabulate
+import random
 
 def ingresarValoresEnteros(indicacion):
     entrada = input(indicacion)
     if not entrada.isdigit():
         print("\nIngrese un numero entero valido! ")
+        entrada = ingresarValoresEnteros(indicacion)
+    elif int(entrada) > 1000 or int(entrada) < 0:
+        print("\nIngrese un numero entero valido! (maximo: 1000, minimo: 0) ")
         entrada = ingresarValoresEnteros(indicacion)
     return int(entrada)
 
@@ -30,16 +35,58 @@ def valoresDeUnDiccionario(diccionario):
             valores += (valor,)
     return valores
 
+
 def cargarDatos():
-    respuesta = input("Desea ingresar los datos? (y/n)\n")
-    clocks= []
-    if(respuesta == 'y' or respuesta == 'Y'):
-        for i in range(0,4):
-            clocks.append( ingresarValoresEnteros("Ingrese el clock" + str(i) +" :\n") )
-    elif(respuesta == 'n' or respuesta == 'N'):
-        clocks = [53, 5, 14, 31]
-    else:
-        print("\nSea serio por favor :/\n")
-        clocks = cargarDatos()
+    print("Como desea ingresar los datos los datos?\n")
+    opciones = [("1", "Me gustaria usar una semilla"), ("2","Yo deseo ingresar todos los valores"), ("3", "Preferiria usar datos aleatorios")]
+    print(tabulate(opciones, headers=["Numero", "Opcion"], tablefmt="orgtbl"))
+    respuesta = ingresarValoresEnteros("\nIngrese el numero de la opcion que desea usar: ")
     
+    clocks= []
+
+    if respuesta == 1:
+        clocks = ingresarDatosPorSemilla()
+    elif respuesta == 2:
+        clocks = ingresarDatosPorUsuario()
+    elif respuesta == 3:
+        clocks = ingresarDatosPorAletoriedad()
+    else:
+        print("\nSea serio por favor :/")
+        cargarDatos()
+    
+    return clocks
+
+
+def ingresarDatosPorSemilla():
+    clocks = [53, 5, 14, 31]
+
+    return clocks
+
+
+def ingresarDatosPorUsuario():
+    clocks = []
+
+    cantidadDeClocks = ingresarValoresEnteros("Cuantas maquinas, (clocks), le gustaria ingresar? (minimo: 3, maximo 10)\n")
+
+    if cantidadDeClocks < 3 or cantidadDeClocks > 10:
+        clocks = ingresarDatosPorUsuario()
+    else:
+        for i in range(0, cantidadDeClocks):
+            clocks.append( ingresarValoresEnteros("Ingrese el clock" + str(i) +": ") )
+
+    return clocks
+
+
+def ingresarDatosPorAletoriedad():
+    clocks = []
+
+    cantidadDeClocks = ingresarValoresEnteros("Cuantas maquinas, (clocks), le gustaria ingresar? (minimo: 3, maximo: 10)\n")
+
+    if cantidadDeClocks < 3 or cantidadDeClocks > 10:
+        print("\nChistosito, que no sabe leer?")
+        clocks = ingresarDatosPorAletoriedad()
+    
+    for i in range(0, cantidadDeClocks):
+        clocks.append(random.randint(1, 100))
+
     return clocks
