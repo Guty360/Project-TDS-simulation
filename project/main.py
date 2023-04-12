@@ -26,9 +26,9 @@ valores = {
     "clock4": clocks[3],
     "clock5": clockAuxiliar,
     'numero': 0,
-    "ES": 0,
-    "maqServer": 0,
-    "maqCola": 0
+    "ES": "Desocupado",
+    "maqServer": "-",
+    "maqCola": "-"
 }
     
     #* Guardamos las filas de la matriz a imprimir la final
@@ -42,12 +42,10 @@ for i in range(0, 15):
 
     for element in out:
         if not element in clocksAuxiliar:
-
             #Si el clock auxiliar es el minimo
             if clocksAuxiliar.index(min(clocksAuxiliar)) == (len(clocksAuxiliar) - 1):
                 if clocksAuxiliar[len(clocksAuxiliar) - 1] == valores["MC"]:
                     clocksAuxiliar[len(clocksAuxiliar) - 1] = valores["MC"] + 11
-                valores["ES"] = 1
                 
                 if clocksAuxiliar[len(clocksAuxiliar) - 1] != 1000:
                     clocksAuxiliar[clocksAuxiliar.index(out[0])] = valores["MC"] + 480
@@ -55,6 +53,7 @@ for i in range(0, 15):
             
             #Se asigna si el reloj auxiliar index
             clocksAuxiliar[clocksAuxiliar.index(min(clocksAuxiliar))] = element
+            valores["ES"] = "Ocupado"
 
             #Si el elemento es el primer out
             if element == out[0]:
@@ -69,6 +68,25 @@ for i in range(0, 15):
                 contador += 1
         if contador == 0:
             clocksAuxiliar[len(clocksAuxiliar) - 1] = 1000
+            valores["ES"] = "Desocupado"
+
+    valores["numero"] = 0
+    # * Obtenemos el numero
+    for element in out:
+        if element in clocksAuxiliar:
+            valores["numero"] += 1
+
+    # * Obtenemos la maquina en servicio
+    if out[0] in clocksAuxiliar:
+        valores["maqServer"] = clocksAuxiliar.index(out[0]) + 1
+    else:
+        valores["maqServer"] = "-"
+    
+    # * Obtenemos la maquina en cola
+    if out[1] in clocksAuxiliar:
+        valores["maqCola"] = clocksAuxiliar.index(out[1]) + 1
+    else:
+        valores["maqCola"] = "-"
     
     
     # * Actualizando los valores
