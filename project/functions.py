@@ -21,24 +21,9 @@ def guardarEnTxt(texto):
     archivo.write(texto)
     archivo.close()
 
-def valoresDeUnDiccionario(diccionario):
-    # Crear una tupla vacía para almacenar los valores
-    valores = ()
-
-    # Iterar sobre los valores del diccionario
-    for valor in diccionario.values():
-        # Verificar si el valor es numérico
-        if isinstance(valor, (int, float)):
-            # Convertir el valor a string y agregarlo a la tupla
-            valores += (str(valor),)
-        else:
-            # Agregar el valor a la tupla
-            valores += (valor,)
-    return valores
-
 
 def cargarDatos():
-    print("Como desea ingresar los datos los datos?\n")
+    print("\nComo desea ingresar los datos los datos?\n")
     opciones = [("1", "Me gustaria usar una semilla"), ("2","Yo deseo ingresar todos los valores"), ("3", "Preferiria usar datos aleatorios")]
     print(tabulate(opciones, headers=["Numero", "Opcion"], tablefmt="orgtbl"))
     respuesta = ingresarValoresEnteros("\nIngrese el numero de la opcion que desea usar: ")
@@ -84,11 +69,11 @@ def ingresarDatosPorAletoriedad():
     cantidadDeClocks = ingresarValoresEnteros("Cuantas maquinas, (clocks), le gustaria ingresar? (minimo: 3)\n")
 
     if cantidadDeClocks < 3:
-        print("\nChistosito, que no sabe leer?")
+        print("\nFavor revise sus datos")
         clocks = ingresarDatosPorAletoriedad()
     
     for i in range(0, cantidadDeClocks):
-        clocks.append(random.randint(1, 1000))
+        clocks.append(random.randint(1, 100))
 
     return clocks
 
@@ -97,7 +82,7 @@ def matriz(valores, ajuste, clocks, out, clockServidor):
 
     # Usamos un auxiliar y determinamos los outs
     clocksAuxiliar = []
-    for i in range(0, len(clocks)+1):
+    for i in range(1, len(clocks)+1):
         clocksAuxiliar.append(valores["clock{}".format(i+1)])
         out.append(out[0]+i)
 
@@ -171,5 +156,6 @@ def textoMatriz(ajuste, valores, matriz):
     txt += json.dumps(ajuste)
     txt += "\n\n"
     txt += tabulate(matriz, headers=list(valores.keys()), tablefmt="orgtbl")
+    txt += '\n'
 
     return txt
