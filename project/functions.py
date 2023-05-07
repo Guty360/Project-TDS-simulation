@@ -77,6 +77,15 @@ def ingresarDatosPorAletoriedad():
 
     return clocks
 
+def cambiarTiempos(ajuste):
+    cambiarTiempos = input("\nDesea hacer aleatorios los tiempos de ajuste y el tiempo normal de uso de maquina (y/n)")
+    if cambiarTiempos == 'y':
+        ajuste["tiempoSeteoYAjuste"] = random.randint(1,25)
+        ajuste["tiempoNormalDeUsoDeMaquina"] = random.randint(30, 1000)
+        print("\n")
+
+    return ajuste
+
 def matriz(valores, ajuste, clocks, out, clockServidor):
     filas = [tuple(valores.values())]
 

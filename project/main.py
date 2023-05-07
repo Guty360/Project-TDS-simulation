@@ -1,4 +1,4 @@
-from functions import guardarEnTxt, cargarDatos, matriz, textoMatriz
+from functions import guardarEnTxt, cargarDatos, matriz, textoMatriz, cambiarTiempos
 
 #! Entradas
 ## Datos a pedir al usuario
@@ -12,6 +12,11 @@ ajuste = {
     "tiempoNormalDeUsoDeMaquina" : 480,
     "cantidadDeEjecucciones" : 25
 }
+
+
+#Preguntamos si quiere cambiar los tiempos
+ajuste = cambiarTiempos(ajuste)
+
 
 #* Clock del servidor
 # clockServidor = max(clocks) * 10000
